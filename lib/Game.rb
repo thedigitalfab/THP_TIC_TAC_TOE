@@ -1,5 +1,6 @@
 require_relative 'Player'
 require_relative 'Board'
+require_relative 'Output'
 
 class Game
     attr_accessor :player_1, :player_2, :board, :current_player
@@ -22,7 +23,7 @@ class Game
         puts "les coups jouables sont: #{board.playable}"
         board.update_board(ask_player_choice,current_player.sign)
         @current_player == @player_1 ? @current_player = @player_2 : @current_player = @player_1
-        board.print_board
+        Output.new.print_board(board)
     end
 
     private
