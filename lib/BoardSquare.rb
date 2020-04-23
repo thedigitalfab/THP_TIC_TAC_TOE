@@ -1,4 +1,4 @@
-class BoardCase
+class BoardSquare
     attr_reader :id
     attr_accessor :content, :played_state
   

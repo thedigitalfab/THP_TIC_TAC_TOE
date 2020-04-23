@@ -1,7 +1,8 @@
 require 'bundler'
 Bundler.require
 
-require_relative 'lib/game'
+require_relative 'lib/Game'
+require_relative 'lib/Output'
 
 #Method - Welcome Message:
 def welcome
@@ -12,6 +13,8 @@ end
 
 
 def perform
+    # Clear Terminal
+    Output.new.clear_terminal
     # Print Welcome message
     welcome
 
@@ -21,18 +24,7 @@ def perform
     puts "#{game.player_2.name} plays with #{game.player_2.sign}"
 
     # Start game:
-    while game.is_still_ongoing?
-        game.play_round()
-    end
-
-    #Ending game:
-    if game.board.victory?(game.player_1)
-        puts "Victoire de player 1"
-    elsif game.board.victory?(game.player_2)
-        puts "Victoire de player 2"
-    else
-        puts "Match nul"
-    end
+    game.play_round()
 end
 
 perform
