@@ -13,9 +13,18 @@ class Board
 
     # Method - Update Board Case with Value:
     def update_board(index,value)
-        coordinates = index_to_coordinate(index.upcase)
-        @grid[coordinates[0]][coordinates[1]].set_content(value)
-        @playable.delete(index.upcase)
+        @grid.each do |grid_line|
+            puts "grid line: #{grid_line}"
+            grid_line.each do |board_case|
+                if board_case.id == index
+                    board_case.set_content(value)
+                    @playable.delete(index.upcase)
+                end
+            end
+        end
+        # coordinates = index_to_coordinate(index.upcase)
+        # @grid[coordinates[0]][coordinates[1]].set_content(value)
+        # @playable.delete(index.upcase)
     end
 
     # Method - Test Victory:

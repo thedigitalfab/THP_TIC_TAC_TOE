@@ -30,11 +30,6 @@ class Game
     def ask_player_choice
         puts "Quelle case voulez vous jouer ?"
         print "> "
-        unless (choice = gets.chomp.upcase).match?(/A|B|C/)
-            ask_player_choice
-        end
-        return choice
+        return gets.chomp.upcase
     end
 end
-
-gets.chomp.upcase.match?(/[ABC[123]]/)
