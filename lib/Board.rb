@@ -13,9 +13,17 @@ class Board
 
     # Method - Update Board Case with Value:
     def update_board(index,value)
-        coordinates = index_to_coordinate(index.upcase)
-        @grid[coordinates[0]][coordinates[1]].set_content(value)
-        @playable.delete(index.upcase)
+        @grid.each do |grid_line|
+            grid_line.each do |board_case|
+                if board_case.id == index
+                    board_case.set_content(value)
+                    @playable.delete(index.upcase)
+                end
+            end
+        end
+        # coordinates = index_to_coordinate(index.upcase)
+        # @grid[coordinates[0]][coordinates[1]].set_content(value)
+        # @playable.delete(index.upcase)
     end
 
     # Method - Test Victory:
@@ -29,7 +37,14 @@ class Board
             print "-" *13
             puts ""
             for j in 0..2 do
-                print "| #{@grid[i][j].get_content} "
+                print "| "
+                if @grid[i][j].get_content == "X"
+                    print "#{@grid[i][j].get_content} ".light_red
+                elsif @grid[i][j].get_content == "O"
+                    print "#{@grid[i][j].get_content} ".light_blue
+                else
+                    print "#{@grid[i][j].get_content} "
+                end
             end
             puts "|"
         end
@@ -38,28 +53,6 @@ class Board
     end
 
     private
-    # Method - Translate Case index to Grid Coordinates:
-    def index_to_coordinate(index)
-        case index.slice(0)
-        when "A"
-            coordinate_x = 0
-        when "B"
-            coordinate_x = 1
-        when "C"
-            coordinate_x = 2
-        end
-
-        case index.slice(1)
-        when "1"
-            coordinate_y = 0
-        when "2"
-            coordinate_y = 1
-        when "3"
-            coordinate_y = 2
-        end
-        return coordinate_x, coordinate_y
-    end
-
     # Method - Test if Victory on specific line:
     def victory_line?(index,player)
         return @grid[index].all?{|board_case| board_case.get_content == player.sign}

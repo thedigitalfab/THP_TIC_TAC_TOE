@@ -2,5 +2,6 @@ source "https://rubygems.org"
 ruby '>= 2.5.1'
 
 gem 'rspec'
-gem 'pry'
+gem 'colorize'
+#gem 'pry'
 #gem 'rubocop'

@@ -10,6 +10,7 @@ def welcome
     puts "---------------------------------"
 end
 
+
 def perform
     # Print Welcome message
     welcome
@@ -35,9 +36,6 @@ def perform
 end
 
 perform
+
 puts "Start a New game? y/N"
 gets.chomp.upcase == "Y" ? perform : false
-
-binding.pry
-
-puts "Final"
