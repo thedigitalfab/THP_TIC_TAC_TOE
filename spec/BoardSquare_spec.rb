@@ -1,4 +1,4 @@
-require_relative '../lib/BoardCase'
+require_relative '../lib/BoardSquare'
 
 describe "BoardCase" do
     context "When testing the BoardCase class Init" do
