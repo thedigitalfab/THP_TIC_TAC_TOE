@@ -5,19 +5,29 @@ require_relative 'Output'
 class Game
     attr_accessor :player_1, :player_2, :board, :current_player
     
-    def initialize()
-		@player_1 = Player.new("Player 1", "X")
+    def initialize
+		# Clear Terminal
+        Output.new.clear_terminal
+        
+        # Print Welcome message
+        Output.new.welcome
+        
+        @player_1 = Player.new("Player 1", "X")
 		@player_2 = Player.new("Player 2", "O")
-		@current_player = @player_1
-		@board = Board.new()
     end
 
     # Play a round:
-    def play_round()
+    def play_round
+        init_round
+        
         while is_still_ongoing?
             play_turn()
         end
-        puts end_game
+        
+        end_game
+
+        puts "Start a New round? y/N"
+        gets.chomp.upcase == "Y" ? play_round : false
     end
 
     # Method - Test Victory:
@@ -40,9 +50,7 @@ class Game
 
     # Play turn:
     def play_turn()
-        Output.new.print_board(board)
-        puts "#{current_player.name} plays:"
-        puts "Playable boxes are: #{board.playable}"
+        Output.new.print_board(board,@player_1,@player_2,@current_player)
         board.update_board(ask_player_choice,current_player.sign)
         @current_player == @player_1 ? @current_player = @player_2 : @current_player = @player_1
     end
@@ -91,16 +99,21 @@ class Game
     #Ending game:
     def end_game
         if victory?(@player_1)
-            Output.new.print_won_board(board,@player_1)
             @player_1.player_wins
-            puts "Victoire de: #{@player_1.name} !"
+            Output.new.print_won_board(board,@player_1,@player_2,@player_1)
         elsif victory?(@player_2)
-            Output.new.print_won_board(board,@player_2)
             @player_2.player_wins
-            puts "Victoire de: #{@player_2.name}"
+            Output.new.print_won_board(board,@player_1,@player_2,@player_2)
         else
             puts "Match nul"
         end
-        puts "ScoreBoard: #{@player_1.name} - #{@player_1.win} | #{@player_2.name} - #{@player_2.win} "
+    end
+
+    # Init a Round:
+    def init_round
+        @current_player = @player_1
+        @board = Board.new()
+        puts "#{@player_1.name} plays with #{@player_1.sign}"
+        puts "#{@player_2.name} plays with #{@player_2.sign}"
     end
 end

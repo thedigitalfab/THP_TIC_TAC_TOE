@@ -1,6 +1,6 @@
 class BoardSquare
-    attr_reader :id
-    attr_accessor :content, :played_state
+    attr_reader :id, :played_state
+    attr_accessor :content
   
     def initialize(id)
         @id = id
